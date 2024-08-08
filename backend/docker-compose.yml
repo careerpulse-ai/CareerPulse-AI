@@ -1,0 +1,29 @@
+version: '3'
+
+
+services:
+  careerpulse_app:
+    container_name: careerpulse_app
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      - DB_URL=postgresql://careerpulseapp:careerpulseadmin@careerpulse_postgres_db:5432/careerpulse_db
+    depends_on:
+      - careerpulse_postgres_db
+    command: [ "npm", "start" ]
+
+  careerpulse_postgres_db:
+    container_name: careerpulse_postgres_db
+    image: postgres:12
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_PASSWORD=careerpulseadmin
+      - POSTGRES_USER=careerpulseapp
+      - POSTGRES_DB=careerpulse_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:  {}
