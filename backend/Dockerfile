@@ -1,8 +1,15 @@
-FROM node:16
+FROM node:18
 
-WORKDIR /backend
+ARG WORK_DIR=/tmp
 
-COPY . ./
+RUN mkdir -p $WORK_DIR
 
-RUN npm i
+WORKDIR $WORK_DIR
 
+COPY package.json .
+
+RUN ["yarn", "install", "--silent"]
+
+COPY . .
+
+CMD ["npm", "start"]
