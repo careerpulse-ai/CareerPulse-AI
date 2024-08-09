@@ -6,7 +6,7 @@ import { RoleResponce } from "../dto/role.dto";
 export class RoleController {
   static async getAllRoles(req: Request, res: Response) {
     try {
-      console.log("serving from contorller");
+      console.log("serving from getAllRoles contorller");
       const roles = await RoleService.getAllroles();
       return res.status(200).json({
         data: roles,
@@ -22,7 +22,7 @@ export class RoleController {
     try {
       const { name } = req.body;
       const create_role: RoleResquest = { name: name };
-      console.log("serving from contorller");
+      console.log("serving from createRole contorller");
       const created_role = await RoleService.createRole(create_role);
       const response: RoleResponce = {
         role_name: created_role.name,
@@ -44,7 +44,7 @@ export class RoleController {
       const { id } = req.params;
       const { name } = req.body;
       const create_role: RoleResquest = { name: name };
-      console.log("serving from contorller");
+      console.log("serving from updateRole contorller");
       const updated_role = await RoleService.updateRole(id, create_role);
       const response: RoleResponce = {
         role_name: updated_role.name,
@@ -64,7 +64,7 @@ export class RoleController {
   static async deleteRole(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      console.log("serving from contorller");
+      console.log("serving from deleteRole contorller");
       const updated_role = await RoleService.deleteRole(id);
       const response = {
         "Delete Task": "Success",

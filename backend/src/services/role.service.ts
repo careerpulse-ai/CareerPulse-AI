@@ -7,23 +7,22 @@ export class RoleService {
     const data = cache.get("data");
     try {
       if (data) {
-        console.log("serving from cache");
+        console.log("serving from getAllroles cache");
         return data;
       } else {
-        console.log("serving from service");
+        console.log("serving from  getAllroles service");
         const roles = await RoleRepository.getAllroles();
         cache.put("data", roles, 10000);
         return roles;
       }
     } catch (error) {
-      console.log("error fetching the roles from service", error);
+      console.log("error fetching the roles from getAllroles service", error);
     }
   }
 
   static async createRole(role: RoleResquest) {
     try {
-      console.log("serving from service");
-
+      console.log("serving from createRole service");
       const role_obj = await RoleRepository.findRoleByname(role.name);
       if (role_obj) {
         throw new Error("Role already Exists");
@@ -31,13 +30,13 @@ export class RoleService {
       const created_role = await RoleRepository.createRole(role);
       return created_role;
     } catch (error) {
-      console.log("error fetching the roles from service", error);
+      console.log("error fetching the roles from createRole service", error);
     }
   }
 
   static async updateRole(id, role: RoleResquest) {
     try {
-      console.log("serving from service");
+      console.log("serving from updateRole service");
 
       const role_obj = await RoleRepository.findRoleById(id);
       if (!role_obj) {
@@ -46,13 +45,13 @@ export class RoleService {
       const updated_role = await RoleRepository.updateRole(id, role);
       return updated_role;
     } catch (error) {
-      console.log("error updating the roles from service", error);
+      console.log("error updating the roles from updateRole service", error);
     }
   }
 
   static async deleteRole(id) {
     try {
-      console.log("serving from service");
+      console.log("serving from deleteRole service");
 
       const role_obj = await RoleRepository.findRoleById(id);
       if (!role_obj) {
@@ -61,7 +60,7 @@ export class RoleService {
       await RoleRepository.deleteRole(id);
       return;
     } catch (error) {
-      console.log("error updating the roles from service", error);
+      console.log("error updating the roles from deleteRole service", error);
     }
   }
 }
