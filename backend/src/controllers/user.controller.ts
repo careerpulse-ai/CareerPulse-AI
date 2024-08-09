@@ -2,10 +2,8 @@ import { Request, Response } from "express";
 import * as cache from "memory-cache";
 import { User } from "../entity/User";
 import { AppDataSource } from "../data-source";
-import { UserResponce } from "../dto/user.dto";
 
 export class UserController {
-
   static async getAllUser(req: Request, res: Response) {
     const data = cache.get("data");
     if (data) {

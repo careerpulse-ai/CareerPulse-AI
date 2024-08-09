@@ -1,20 +1,19 @@
-import { AppDataSource } from "./data-source"
+import { AppDataSource } from "./data-source";
 import * as dotenv from "dotenv";
 import * as express from "express";
 import { Request, Response } from "express";
 import "reflect-metadata";
 import { errorHandler } from "./middleware/error.middleware";
 import { userRouter } from "./routes/user.routes";
+import { roleRouter } from "./routes/role.routes";
 dotenv.config();
-
-
 
 const app = express();
 app.use(express.json());
 app.use(errorHandler);
 const { PORT = 3000 } = process.env;
-app.use('/api',userRouter);
-
+app.use("/api", userRouter);
+app.use("/api", roleRouter);
 
 AppDataSource.initialize()
   .then(async () => {
